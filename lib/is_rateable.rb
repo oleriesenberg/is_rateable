@@ -73,7 +73,7 @@ module IsRateable
       when :interactive_stars
         content_tag(:ul, :class =>  "rating #{record.rating_in_words}star") do
           (record.minimum_rating_allowed..record.maximum_rating_allowed).map do |i|
-            content_tag(:li, link_to(i, rating_url(record, i), :title => "Rate this #{pluralize(i, units)} out of #{record.maximum_rating_allowed}", :method => :put), :class => "rating-#{i}")
+            content_tag(:li, link_to_remote(i, :url => rating_url(record, i), :title => "Rate this #{pluralize(i, units)} out of #{record.maximum_rating_allowed}", :method => :put), :class => "rating-#{i}")
           end.join("\n")
         end
       end

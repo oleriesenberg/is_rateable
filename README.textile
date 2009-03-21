@@ -34,10 +34,11 @@ Add a method to your books_controller like so:
   <pre>
     def rate
       @book = Book.find(params[:id])
-      unless @book.add_rating(params[:rating].to_i, :ip => request.remote_ip)
-        flash[:notice] = "You have already voted on this book"
-      end
-      redirect_to @book
+        if @source.rate(params[:rating].to_i, :ip => request.remote_ip)  
+	  respond_to do |format|
+	    format.js
+	  end
+	end
     end
   </pre>
 </code>
